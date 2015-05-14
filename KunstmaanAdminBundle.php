@@ -32,6 +32,6 @@ class KunstmaanAdminBundle extends Bundle
      */
     public function getParent()
     {
-        return 'FOSUserBundle';
+        return null;
     }
 }
