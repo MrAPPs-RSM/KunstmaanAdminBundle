@@ -23,6 +23,9 @@
     "autoload": {
         "psr-0": { "Mrapps\\AdminBundle": "" }
     },
+    "replace": {
+    "kunstmaan/admin-bundle":"self.version"
+},
     "target-dir": "Kunstmaan/AdminBundle",
     "extra": {
         "branch-alias": {
