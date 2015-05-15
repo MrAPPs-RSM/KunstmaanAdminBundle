@@ -24,7 +24,7 @@
         "psr-0": { "Mrapps\\AdminBundle": "" }
     },
     "replace": {
-    "kunstmaan/admin-bundle":"self.version"
+    "kunstmaan/admin-bundle":"3.1.1"
 },
     "target-dir": "Kunstmaan/AdminBundle",
     "extra": {
