@@ -17,7 +17,7 @@
     },
     "minimum-stability": "dev",
     "autoload": {
-        "psr-0": { "Mrapps\\AdminBundle": "" }
+        "psr-0": { "Kunstmaan\\AdminBundle": "" }
     },
     "replace": {
     "kunstmaan/admin-bundle":"self.version"
