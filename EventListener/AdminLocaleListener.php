@@ -3,9 +3,9 @@
 namespace Kunstmaan\AdminBundle\EventListener;
 
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Security\Core\Authentication\Token\RememberMeToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -57,14 +57,10 @@ class AdminLocaleListener implements EventSubscriberInterface
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
-            // return immediately
-            return;
-        }
-
         $url = $event->getRequest()->getRequestUri();
-        if ($this->isAdminToken($this->context->getToken(), $this->providerKey) && $this->isAdminRoute($url)) {
-            $token = $this->context->getToken();
+        $token = $this->context->getToken();
+
+        if ($token && $this->isAdminToken($token, $this->providerKey) && $this->isAdminRoute($url)) {
             $locale = $token->getUser()->getAdminLocale();
 
             if (!$locale) {
@@ -83,7 +79,7 @@ class AdminLocaleListener implements EventSubscriberInterface
      */
     private function isAdminToken(TokenInterface $token, $providerKey)
     {
-        return $token instanceof UsernamePasswordToken && $token->getProviderKey() === $providerKey;
+        return ($token instanceof UsernamePasswordToken || $token instanceof RememberMeToken) && $token->getProviderKey() === $providerKey;
     }
 
     /**
